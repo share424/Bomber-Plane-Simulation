@@ -6,6 +6,8 @@ function setup(){
 	
 	pesawat = new Pesawat();
 	alert('Press enter to eject bomb');
+	textSize(20);
+
 }
 
 function draw(){
@@ -13,6 +15,7 @@ function draw(){
 	pesawat.draw();
 	fill('#8B4513');
 	rect(0, height-25, width, height);
+	
 }
 
 function keyPressed(){
@@ -68,8 +71,6 @@ function Bomb(x, y, v0){
 	}
 
 	this.draw = function(){
-		//fill('#ff0000');
-		//circle(pos[0], pos[1], 15);
 		if(pos[1] >= height-50){
 			image(explode, pos[0]-50, height-100);
 			if(!sound.isPlaying()){
@@ -78,9 +79,15 @@ function Bomb(x, y, v0){
 		} else {
 			image(img, pos[0]-25, pos[1]);
 		}
-		
+		fill(255);
+		//text('('+v0+','+pos[1]+')', pos[0], pos[1]);
 		pos[0] = x + v0*cos(theta)*t;
 		pos[1] = y + -1*(v0*sin(theta)*t - 0.5*g*t*t);
+		//v0 = v0*sin(theta)
+		vx = v0*cos(theta);
+		vy = v0*sin(theta) - g*t;
+		text('Vx: '+vx.toFixed(2)+'m/s', pos[0]+15, pos[1]+20);
+		text('Vy: '+(-vy).toFixed(2)+'m/s', pos[0]+15, pos[1]+40);
 		t++;
 
 	}
